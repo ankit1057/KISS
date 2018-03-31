@@ -63,11 +63,6 @@ public class ContactsProvider extends Provider<ContactsPojo> {
 
             if (match) {
                 List<Pair<Integer, Integer>> positions = matchInfo.getMatchedSequences();
-                try {
-                    pojo.setNameHighlight(positions);
-                } catch (Exception e) {
-                    pojo.setNameHighlight(0, pojo.normalizedName.length());
-                }
             }
 
             if (!pojo.nickname.isEmpty()) {
@@ -75,7 +70,6 @@ public class ContactsProvider extends Provider<ContactsPojo> {
                     if (!match || (matchInfo.score > pojo.relevance)) {
                         match = true;
                         pojo.relevance = matchInfo.score;
-                        pojo.clearNameHighlight();
                     }
                 }
             }
@@ -85,7 +79,6 @@ public class ContactsProvider extends Provider<ContactsPojo> {
                 if (fuzzyScore.match(pojo.phoneSimplified, matchInfo)) {
                     match = true;
                     pojo.relevance = matchInfo.score;
-                    pojo.clearNameHighlight();
                 }
             }
 
